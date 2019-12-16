@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>额度计算器</title>
+    <style type="text/css">
+        button  {
+            text-align: center;
+            min-width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            background: #1E90FF;
+            outline: none;
+            font-family: Microsoft YaHei;
+            color: white;
+            font-size: 20px;
+        }
+        .input_text {
+            BORDER-TOP-STYLE: none;
+            BORDER-RIGHT-STYLE: none;
+            BORDER-LEFT-STYLE: none;
+            BORDER-BOTTOM-STYLE: solid;
+            border-bottom-color: #1E90FF;
+            vertical-align: middle;
+            font-size: 18px;
+            width: 50%;
+            height: 50px;
+        }
+        .input_title {
+            border: none;
+            vertical-align: middle;
+            font-size: 18px;
+            width: 50%;
+            height: 50px;
+            color: #ff560f;
+            font-weight: bold
+          }
+    </style>
+    <script>
+        function show() {
+            var money = document.getElementById("money").value * 10000;
+            var rate = document.getElementById("rate").value;
+            if (rate=="有房贷-优质单位")
+            {rate=18/100/12}
+            if (rate=="有房贷-普通单位A")
+            {rate=21.78/100/12}
+            if (rate=="有房贷-普通单位B")
+            {rate=23.97/100/12}
+            if (rate=="有公积金-优质单位")
+            {rate=22.68/100/12}
+            if (rate=="其他-有房贷（业主专案）")
+            {rate=26.28/100/12}
+            var month = document.getElementById("month").value;
+            var benxi = (
+                (money * rate * (1 + rate) ** month) /
+                (Math.pow(1 + rate, month) - 1)
+            ).toFixed(2);
+            var interest = (benxi - (money/month)).toFixed(2);
+            var rate_jt = (((benxi - money / month) / money) * 100).toFixed(2);
+            document.getElementById("benxi").value = benxi;
+            document.getElementById("interest").value = interest;
+            document.getElementById("rate_jt").value = rate_jt;
+        }
+    </script>
+</head>
+<body style="background-color: #ffffff;">
+<div style="text-align: center">
+    <b><h2>额度计算器</h2></b>
+</div>
+<hr>
+<div class="text">
+    <p></p>
+    <input class="input_title" readonly="readonly" value="1.初审额度（万）："><input class="input_text" type="number" value="10" />
+    <p></p>
+    <input class="input_title" style="color: #ff560f; font-weight: bold" readonly="readonly" value="2.客户类型："><select class="input_text" placeholder="有房贷-优质单位" list="kequn"/>
+        <option value="有房贷-优质单位">有房贷-优质单位</option>
+        <option value="有房贷-普通单位A">有房贷-普通单位A</option>
+        <option value="有房贷-普通单位B">有房贷-普通单位B</option>
+        <option value="有公积金-优质单位">有公积金-优质单位</option>
+        <option value="其他-有房贷（业主专案）">其他-有房贷（业主专案）</option>
+    </select>
+    <p></p>
+    <input class="input_title" readonly="readonly" value="3.婚姻状况："/><select class="input_text">
+        <option value="6">已婚</option>
+        <option value="12">未婚</option>
+    </select>
+    <p></p>
+    <input class="input_title" readonly="readonly" value="4.公积金："/><select class="input_text">
+        <option value="6">大于5000</option>
+        <option value="12">小于5000</option>
+    </select>
+    <p></p>
+    <input class="input_title" readonly="readonly" value="5.房贷月供："/><select class="input_text">
+        <option value="6">大于5000</option>
+        <option value="12">小于5000</option>
+    </select>
+    <p></p>
+    <input class="input_title" readonly="readonly" value="6.出生年月："/><select class="input_text">
+        <option value="6">大于1975</option>
+        <option value="12">小于1975</option>
+    </select>
+    <p></p>
+    <b><button onclick="show()" style="" >提 交</button></b>
+    <p></p>
+    <p></p>
+    <input class="input_title" readonly="readonly" value="建议额度（万）："><input class="input_text" style="color:red;" id="benxi">
+    <p></p>
+    <br>
+    <hr>
+    <em>结果仅供参考。</em>
+</div>
+</body>
+</html>
